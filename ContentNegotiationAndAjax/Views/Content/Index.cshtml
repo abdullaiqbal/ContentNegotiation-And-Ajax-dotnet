@@ -1,0 +1,151 @@
+﻿@model IEnumerable<ContentNegotiationAndAjax.Models.Course>
+
+
+@*<partial name="~/Views/Content/CourseDetail.cshtml" />*@
+
+
+@*@if (ViewBag.num == "str")
+{
+    <partial name="~/Views/Content/CourseDetail.cshtml" />
+}*@
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CCode)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <button onclick="return getData(@item.Id)">Click</button>
+                @*<a onclick="return getData(@item.Id)">Data By Partial View</a>*@
+            </td>
+        </tr>
+}
+       
+    </tbody>
+</table>
+
+<div id="d"></div>
+
+
+
+@*script>
+    $(function () {
+        initializeForm();
+    });
+
+    function Add() {
+        id = 1;
+        ShowLoader();
+        debugger;
+        $.ajax({
+            url: '/api/Task/Post/',
+            type: 'POST',
+            data: JSON.stringify(TaskEmp),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                toastr.success("Emp Added Successfully", { timeOut: 5000 });
+
+                ResetForm();
+                HideLoader();
+            }
+        });
+    };
+</script>*@
+   
+<script>
+    function getData(id) {
+    $.ajax({
+        
+        url: '/Content/Details/'+id,
+        type: 'GET',
+        contentType: 'json',
+        success: function (result) {
+        console.log('Data received: ');
+        //console.log(result);
+                
+                let content = document.getElementById('d');
+                content.innerHTML = `${result}`;
+
+            }
+    })
+
+   
+}
+</script>
+
+@* Section 2*@
+
+@*
+<script>
+    //$(function start() {
+    //    initializeForm();
+    //});
+
+    function Add() {
+        id = 1;
+        //ShowLoader();
+        //debugger;
+        $.ajax({
+            url: '/Content/ajax/1',
+            type: 'POST',
+            data: JSON.stringify("A"),
+            contentType: "application/json;charset=utf-8",
+            //success: getData()
+            success: function () {
+                //toastr.success("Emp Added Successfully", { timeOut: 5000 });
+            <partial name="~/Views/Content/CourseDetail.cshtml" />
+
+                //ResetForm();
+                //HideLoader();
+            }
+        });
+    };
+</script>*@
+
+@*<script>
+function getData() {
+    $.ajax({
+
+        url: '/Content/Details/1',
+        type: 'GET'
+
+    })
+
+
+}
+</script>*@
+
+
+
+
+@*id: 1,
+        url: @Url.Action("Details"),*@
+@*url: '/Content/Details/1',*@
