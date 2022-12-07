@@ -1,8 +1,10 @@
 ﻿using ContentNegotiationAndAjax.Data;
 using ContentNegotiationAndAjax.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ContentNegotiationAndAjax.Controllers
 {
@@ -38,9 +40,9 @@ namespace ContentNegotiationAndAjax.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(String? id)
+        public IActionResult Details(int id)
         {
-            var course = _Context.Courses.Where(x => x.Id ==Convert.ToInt32(id)).FirstOrDefault();
+            var course = _Context.Courses.Where(x => x.Id ==id).FirstOrDefault();
             var CheckAjaxType = HttpContext.Request.Headers["X-Requested-With"].ToString();
             if (CheckAjaxType == "XMLHttpRequest")
             {
@@ -51,10 +53,17 @@ namespace ContentNegotiationAndAjax.Controllers
 
         //Content Negotiation Action
         [HttpGet]
-        public IActionResult ContentNegotiation(int id)
+        //[Produces("application/json")]
+        public /*IEnumerable<Course> */IActionResult ContentNegotiation()
         {
-            var course = _Context.Courses.Where(x => x.Id == id).FirstOrDefault();
+            //var contentType = HttpContext.Request.Headers.Accept.ToString();
+            var course = _Context.Courses.ToList();
+            //var services = HttpContext.RequestServices;
+
+            //OutputFormatter output = contentType;
+            //HttpContext.Response.Headers.ContentType = contentType;
             return Ok(course);
+            //return course;
         }
 
         [HttpGet]

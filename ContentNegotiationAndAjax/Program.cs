@@ -7,20 +7,38 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
-builder.Services.AddControllers(options =>
-{
-    options.RespectBrowserAcceptHeader = true;
+//builder.Services.AddControllers(options =>
+//{
+//    options.RespectBrowserAcceptHeader = true;
 
-})
-.AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-});
+//})
+//.AddJsonOptions(options =>
+//{
+//    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+//});
+
 
 //Content Negotiation
 builder.Services.AddMvc()
     .AddXmlSerializerFormatters()
     .AddXmlDataContractSerializerFormatters();
+
+
+
+//// content negosiation 
+//builder.Services.AddControllers(options =>
+//{
+//    options.RespectBrowserAcceptHeader = true;
+//    options.ReturnHttpNotAcceptable = true;
+//}).AddXmlSerializerFormatters();
+
+
+//builder.Services.AddControllers(options =>
+//{
+//    options.InputFormatters.Insert(0, );
+//    options.OutputFormatters.Insert(0, new VcardOutputFormatter());
+//});
+
 //.AddFormatterMappings();
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
