@@ -18,6 +18,9 @@ builder.Services.AddControllersWithViews();
 //});
 
 
+//Localization
+//builder.Services.AddLocalization(options => options.ResourcesPath = "Resource folder");
+
 //Content Negotiation
 builder.Services.AddMvc()
     .AddXmlSerializerFormatters()
